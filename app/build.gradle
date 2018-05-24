@@ -20,6 +20,16 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
+    packagingOptions {
+        exclude 'META-INF/INDEX.LIST'
+        exclude 'META-INF/io.netty.versions.properties'
+        exclude 'META-INF/rxjava.properties'
+        exclude 'META-INF/io.netty.versions.properties'
+        exclude 'META-INF/rxjava.properties'
+        pickFirst 'lib/armeabi-v7a/libc++_shared.so'
+
+    }
 }
 
 dependencies {
@@ -30,4 +40,10 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.1'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
+    implementation files('libs/netty-buffer-4.0.42.Final.jar')
+    implementation files('libs/netty-codec-4.0.42.Final.jar')
+    implementation files('libs/netty-common-4.0.42.Final.jar')
+    implementation files('libs/netty-handler-4.0.42.Final.jar')
+    implementation files('libs/netty-transport-4.0.42.Final.jar')
+    implementation files('libs/protobuf-java-2.5.0.jar')
 }
