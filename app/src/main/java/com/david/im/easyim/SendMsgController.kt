@@ -1,7 +1,7 @@
 package com.david.im.easyim
 
 import android.util.Log
-import io.netty.channel.ChannelFuture
+import com.david.im.easyim.proto.IMessage
 import io.netty.channel.ChannelFutureListener
 import io.netty.channel.ChannelHandlerContext
 
@@ -14,7 +14,7 @@ object SendMsgController {
         this.channelHandlerContext = channelHandlerContext
     }
 
-    fun sendMsg(msg: String) {
+    fun sendMsg(msg: IMessage.Protocol) {
         if (channelHandlerContext != null) {
             channelHandlerContext!!.writeAndFlush(msg)
         } else {
@@ -23,7 +23,7 @@ object SendMsgController {
 
     }
 
-    fun sendMsg(msg: String, future: ChannelFutureListener) {
+    fun sendMsg(msg: IMessage.Protocol, future: ChannelFutureListener) {
         if (channelHandlerContext != null) {
             channelHandlerContext!!.writeAndFlush(msg).addListener(future)
         } else {

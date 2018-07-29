@@ -1,0 +1,32 @@
+syntax = "proto2";
+
+message Protocol {
+    optional ContentType contentType = 1;
+    optional bytes content = 2;
+}
+
+enum ContentType {
+    Register_INFO = 0;
+    Register_UUID = 1;
+    Message_INFO = 2;
+}
+
+enum MessageType {
+    ALL = 0;
+    ONE = 1;
+}
+
+message Register {
+    optional string name = 1;
+}
+
+message RegisterUUID {
+    optional string name = 1;
+    optional string UUID = 2;
+}
+
+message Message {
+    optional MessageType type = 1;
+    required string uuid = 2;
+    optional string message = 3;
+}

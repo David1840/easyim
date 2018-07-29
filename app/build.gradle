@@ -45,5 +45,5 @@ dependencies {
     implementation files('libs/netty-common-4.0.42.Final.jar')
     implementation files('libs/netty-handler-4.0.42.Final.jar')
     implementation files('libs/netty-transport-4.0.42.Final.jar')
-    implementation files('libs/protobuf-java-2.5.0.jar')
+    implementation files('libs/protobuf-java-3.5.0.jar')
 }

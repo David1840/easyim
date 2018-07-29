@@ -1,20 +1,21 @@
 package com.david.im.easyim
 
 import android.util.Log
+import com.david.im.easyim.proto.IMessage
 import io.netty.channel.ChannelHandler
 import io.netty.channel.ChannelHandlerContext
 import io.netty.channel.SimpleChannelInboundHandler
 
 
 @ChannelHandler.Sharable
-class ClientHandler : SimpleChannelInboundHandler<Any>() {
+class ClientHandler : SimpleChannelInboundHandler<IMessage.Protocol>() {
 
     override fun channelActive(ctx: ChannelHandlerContext) {
 //        ctx.writeAndFlush("connect from client!")
         SendMsgController.setChannelHandler(ctx)
     }
 
-    override fun channelRead0(p0: ChannelHandlerContext?, p1: Any?) {
+    override fun channelRead0(p0: ChannelHandlerContext?, p1: IMessage.Protocol) {
         Log.e("ClientHandler", "get form server $p1")
     }
 
