@@ -9,7 +9,9 @@ enum ContentType {
     Register_INFO = 0;
     Register_UUID = 1;
     Message_INFO = 2;
+    HEART_BEAT = 3;
 }
+
 
 enum MessageType {
     ALL = 0;

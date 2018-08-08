@@ -25,5 +25,11 @@ class ProtocolFactory {
                     .setContent(content.toByteString())
                     .build()
         }
+
+        fun getHeartBeat(): IMessage.Protocol {
+            return IMessage.Protocol.newBuilder()
+                    .setContentType(IMessage.ContentType.HEART_BEAT)
+                    .build()
+        }
     }
 }

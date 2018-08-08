@@ -2,6 +2,7 @@
 // source: IMessage.proto
 
 package com.david.im.easyim.proto;
+
 public final class IMessage {
   private IMessage() {}
   public static void registerAllExtensions(
@@ -30,6 +31,10 @@ public final class IMessage {
      * <code>Message_INFO = 2;</code>
      */
     Message_INFO(2),
+    /**
+     * <code>HEART_BEAT = 3;</code>
+     */
+    HEART_BEAT(3),
     ;
 
     /**
@@ -44,6 +49,10 @@ public final class IMessage {
      * <code>Message_INFO = 2;</code>
      */
     public static final int Message_INFO_VALUE = 2;
+    /**
+     * <code>HEART_BEAT = 3;</code>
+     */
+    public static final int HEART_BEAT_VALUE = 3;
 
 
     public final int getNumber() {
@@ -63,6 +72,7 @@ public final class IMessage {
         case 0: return Register_INFO;
         case 1: return Register_UUID;
         case 2: return Message_INFO;
+        case 3: return HEART_BEAT;
         default: return null;
       }
     }
@@ -2924,10 +2934,10 @@ public final class IMessage {
       "\"\030\n\010Register\022\014\n\004name\030\001 \001(\t\"*\n\014RegisterUU" +
       "ID\022\014\n\004name\030\001 \001(\t\022\014\n\004UUID\030\002 \001(\t\"D\n\007Messag" +
       "e\022\032\n\004type\030\001 \001(\0162\014.MessageType\022\014\n\004uuid\030\002 " +
-      "\002(\t\022\017\n\007message\030\003 \001(\t*E\n\013ContentType\022\021\n\rR" +
+      "\002(\t\022\017\n\007message\030\003 \001(\t*U\n\013ContentType\022\021\n\rR" +
       "egister_INFO\020\000\022\021\n\rRegister_UUID\020\001\022\020\n\014Mes" +
-      "sage_INFO\020\002*\037\n\013MessageType\022\007\n\003ALL\020\000\022\007\n\003O" +
-      "NE\020\001"
+      "sage_INFO\020\002\022\016\n\nHEART_BEAT\020\003*\037\n\013MessageTy" +
+      "pe\022\007\n\003ALL\020\000\022\007\n\003ONE\020\001"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
