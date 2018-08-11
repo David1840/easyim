@@ -32,8 +32,6 @@ object SendMsgController {
     }
 
     fun close() {
-        if (channelHandlerContext != null) {
-            channelHandlerContext!!.close()
-        }
+
     }
 }

@@ -32,3 +32,13 @@ message Message {
     required string uuid = 2;
     optional string message = 3;
 }
+
+message HeartBeat_Ping{
+    required string time = 1;
+    required string uuid = 2;
+}
+
+message HeartBeat_Pong{
+    required string time = 1;
+    required string uuid = 2;
+}

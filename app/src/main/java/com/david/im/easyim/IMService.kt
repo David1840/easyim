@@ -5,11 +5,16 @@ import android.content.Intent
 import android.os.IBinder
 import android.util.Log
 import io.netty.bootstrap.Bootstrap
+import io.netty.channel.ChannelFuture
+import io.netty.channel.ChannelOption
 import io.netty.channel.nio.NioEventLoopGroup
 import io.netty.channel.socket.nio.NioSocketChannel
 import java.net.InetSocketAddress
 
 class IMService : Service() {
+
+    var mChannelFuture: ChannelFuture? = null
+    var mGroup: NioEventLoopGroup? = null
 
     override fun onCreate() {
         super.onCreate()
@@ -17,7 +22,6 @@ class IMService : Service() {
     }
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
-
         return START_STICKY
     }
 
@@ -28,19 +32,29 @@ class IMService : Service() {
 
     fun start() {
         Log.e("sd", "Connect start !")
-        val group = NioEventLoopGroup()
+        mGroup = NioEventLoopGroup()
         try {
             val b = Bootstrap()
-            b.group(group)
+            b.group(mGroup)
                     .channel(NioSocketChannel::class.java)
                     .remoteAddress(InetSocketAddress("172.18.157.43", 1088))
+                    .option(ChannelOption.CONNECT_TIMEOUT_MILLIS, 3000)
                     .handler(ProtocolPipeline())
 
-            val f = b.connect().sync()
-
-            f.channel().closeFuture().sync()
+            mChannelFuture = b.connect().awaitUninterruptibly()
+            mChannelFuture!!.channel().closeFuture().sync()
         } finally {
-            group.shutdownGracefully().sync()
+            mGroup!!.shutdownGracefully().sync()
+        }
+    }
+
+
+    fun stop() {
+        mChannelFuture?.let {
+            it.channel().closeFuture().sync()
+            mGroup?.let {
+                it.shutdownGracefully().sync()
+            }
         }
     }
 }

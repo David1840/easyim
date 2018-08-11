@@ -36,11 +36,14 @@ class ClientHandler : SimpleChannelInboundHandler<IMessage.Protocol>() {
         }
     }
 
+
     override fun userEventTriggered(ctx: ChannelHandlerContext?, evt: Any?) {
         if (evt is IdleStateEvent) {
             if (evt.state() == IdleState.WRITER_IDLE) {
                 Log.d(TAG, "send heartbeat!")
                 ctx?.writeAndFlush(ProtocolFactory.getHeartBeat())
+            } else {
+                Log.d(TAG, "其他超时：${evt.state()}")
             }
         }
 

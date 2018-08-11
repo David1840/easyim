@@ -14,14 +14,12 @@ class ProtocolPipeline : ChannelInitializer<SocketChannel>() {
     override fun initChannel(ch: SocketChannel) {
         val pipeline = ch.pipeline()
 
-        pipeline.addLast("send heartbeat", IdleStateHandler(0, 15, 0, TimeUnit.SECONDS))
-//
+        pipeline.addLast("send heartbeat", IdleStateHandler(0, 30, 0, TimeUnit.SECONDS))
         // 半包的处理
         pipeline.addLast(ProtobufVarint32FrameDecoder())
         pipeline.addLast("proto decoder", ProtobufDecoder(IMessage.Protocol.getDefaultInstance()))
         pipeline.addLast(ProtobufVarint32LengthFieldPrepender())
         pipeline.addLast("proto encoder", ProtobufEncoder())
-
         pipeline.addLast(ClientHandler())
     }
 }
